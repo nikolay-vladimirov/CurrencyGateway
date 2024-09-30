@@ -1,7 +1,6 @@
 package vladimirov.nikolay.CurrencyGateway.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import vladimirov.nikolay.CurrencyGateway.entities.CallStatistics;
 import vladimirov.nikolay.CurrencyGateway.exceptions.DuplicateRequestIdException;

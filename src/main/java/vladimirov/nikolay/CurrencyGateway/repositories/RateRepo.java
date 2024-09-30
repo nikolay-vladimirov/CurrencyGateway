@@ -2,7 +2,6 @@ package vladimirov.nikolay.CurrencyGateway.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import vladimirov.nikolay.CurrencyGateway.entities.BatchInformation;
 import vladimirov.nikolay.CurrencyGateway.entities.Rate;
 
 import java.util.Collection;

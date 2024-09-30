@@ -1,17 +1,18 @@
 package vladimirov.nikolay.CurrencyGateway.DTOs;
 
-
-public class GetCurrentCurrencyRequest {
+public class GetCurrencyHistoryRequest {
     private String requestId;
     private Long timestamp;
     private String client;
     private String currency;
+    private Long period;
 
-    public GetCurrentCurrencyRequest(String requestId, Long timestamp, String client, String currency) {
+    public GetCurrencyHistoryRequest(String requestId, Long timestamp, String client, String currency, Long period) {
         this.requestId = requestId;
         this.timestamp = timestamp;
         this.client = client;
         this.currency = currency;
+        this.period = period;
     }
 
     public String getRequestId() {
@@ -44,5 +45,13 @@ public class GetCurrentCurrencyRequest {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public Long getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Long period) {
+        this.period = period;
     }
 }

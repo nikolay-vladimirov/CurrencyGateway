@@ -21,8 +21,17 @@ public class RateService {
         this.batchInformationService = batchInformationService;
     }
 
-    public List<CurrencyResponse> getCurrencyRates(String currency){
+    public List<CurrencyResponse> getCurrentRates(String currency){
         List<BatchInformation> batches = batchInformationService.getMostRecentBatches();
+        return getCurrencyRatesForBatches(currency, batches);
+    }
+
+    public List<CurrencyResponse> getCurrencyHistory(String currency, Long period){
+        List<BatchInformation> batches = batchInformationService.getBatchInformationForPeriod(period);
+        return getCurrencyRatesForBatches(currency, batches);
+    }
+
+    private List<CurrencyResponse> getCurrencyRatesForBatches(String currency, List<BatchInformation> batches){
         List<Long> batchIds = batches.stream().map(BatchInformation::getId).toList();
         List<Rate> rates = rateRepo.findByCurrencyAndBatchInformation_IdIn(currency, batchIds);
         return rates.stream().map( rate -> new CurrencyResponse(rate.getBatchInformation().getBaseCurrency(), rate.getBaseValue(), rate.getBatchInformation().getDateTime())).toList();

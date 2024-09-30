@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import vladimirov.nikolay.CurrencyGateway.entities.BatchInformation;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -22,4 +23,6 @@ public interface BatchInformationRepo extends JpaRepository<BatchInformation, Lo
                     )
             select id, date_time, base_currency from most_recent_updates where rn = 1""", nativeQuery = true)
     List<BatchInformation> getMostRecentBatches();
+
+    List<BatchInformation> findBatchInformationByDateTimeAfter(LocalDateTime dateTime);
 }

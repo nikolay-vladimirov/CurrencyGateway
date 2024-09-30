@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import vladimirov.nikolay.CurrencyGateway.entities.BatchInformation;
 import vladimirov.nikolay.CurrencyGateway.repositories.BatchInformationRepo;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -19,5 +21,9 @@ public class BatchInformationService {
 
     public List<BatchInformation> getMostRecentBatches(){
         return batchInformationRepo.getMostRecentBatches();
+    }
+    public List<BatchInformation> getBatchInformationForPeriod(Long period){
+        LocalDateTime periodFromDate = LocalDateTime.now(ZoneId.of("UTC")).minusHours(period);
+        return batchInformationRepo.findBatchInformationByDateTimeAfter(periodFromDate);
     }
 }
