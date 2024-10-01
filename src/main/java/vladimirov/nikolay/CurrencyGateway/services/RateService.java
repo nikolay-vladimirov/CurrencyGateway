@@ -36,8 +36,8 @@ public class RateService {
     }
 
     private List<CurrencyResponse> getCurrencyRatesForBatches(String currency, List<BatchInformation> batches){
-        List<Long> batchIds = batches.stream().map(BatchInformation::getId).toList();
-        List<Rate> rates = rateRepo.findByCurrencyAndBatchInformation_IdIn(currency, batchIds);
+        List<String> batchIds = batches.stream().map(BatchInformation::getEtag).toList();
+        List<Rate> rates = rateRepo.findByCurrencyAndBatchInformation_EtagIn(currency, batchIds);
         logger.info("Mapping rates to response {}", rates);
         return rates.stream().map( rate -> new CurrencyResponse(rate.getBatchInformation().getBaseCurrency(), rate.getBaseValue(), rate.getBatchInformation().getDateTime())).toList();
     }

@@ -8,11 +8,10 @@ import java.util.Set;
 @Entity
 public class BatchInformation {
     @Id
-    @GeneratedValue
-    private Long id;
+    private String etag;
     private LocalDateTime dateTime;
     private String baseCurrency;
-    private String etag;
+
     @OneToMany(mappedBy = "batchInformation")
     private Set<Rate> rates;
 
@@ -47,14 +46,6 @@ public class BatchInformation {
 
     public void setRates(Set<Rate> rates) {
         this.rates = rates;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEtag() {

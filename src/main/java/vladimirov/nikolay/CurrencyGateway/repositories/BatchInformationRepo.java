@@ -14,7 +14,6 @@ public interface BatchInformationRepo extends JpaRepository<BatchInformation, Lo
     @Query(value = """
             WITH most_recent_updates AS (
             SELECT
-                    id,
                     base_currency ,
                     date_time,
                     etag,
@@ -22,7 +21,7 @@ public interface BatchInformationRepo extends JpaRepository<BatchInformation, Lo
                 FROM
                     batch_information bi
                     )
-            select id, date_time, base_currency, etag from most_recent_updates where rn = 1""", nativeQuery = true)
+            select date_time, base_currency, etag from most_recent_updates where rn = 1""", nativeQuery = true)
     List<BatchInformation> getMostRecentBatches();
 
     List<BatchInformation> findBatchInformationByDateTimeAfter(LocalDateTime dateTime);

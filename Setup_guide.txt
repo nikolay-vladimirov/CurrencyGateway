@@ -1,0 +1,6 @@
+Setup guide:
+1) Create a postgres 15 database named currency_gateway
+2) Change application.properties to use your db user, password and API key (this one has around 60 more calls)
+3) Run maven clean install
+4) Pray
+5) Start the application

@@ -53,7 +53,7 @@ public class Rate {
         final StringBuffer sb = new StringBuffer("Rate{");
         sb.append("currency='").append(currency).append('\'');
         sb.append(", baseValue=").append(baseValue);
-        sb.append(", batchInformationId=").append(batchInformation.getId());
+        sb.append(", batchInformationEtag=").append(batchInformation.getEtag());
         sb.append('}');
         return sb.toString();
     }

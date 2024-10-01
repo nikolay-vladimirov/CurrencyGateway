@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface RateRepo extends JpaRepository<Rate, Long> {
 
-    List<Rate> findByCurrencyAndBatchInformation_IdIn(String currency, Collection<Long> batchIds);
+    List<Rate> findByCurrencyAndBatchInformation_EtagIn(String currency, Collection<String> batchEtags);
 }
