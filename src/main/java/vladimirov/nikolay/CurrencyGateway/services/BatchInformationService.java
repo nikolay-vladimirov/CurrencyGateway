@@ -26,4 +26,7 @@ public class BatchInformationService {
         LocalDateTime periodFromDate = LocalDateTime.now(ZoneId.of("UTC")).minusHours(period);
         return batchInformationRepo.findBatchInformationByDateTimeAfter(periodFromDate);
     }
+    public boolean isInitialInsert(){
+        return batchInformationRepo.count()  == 0L;
+    }
 }

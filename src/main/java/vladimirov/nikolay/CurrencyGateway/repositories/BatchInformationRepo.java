@@ -17,11 +17,12 @@ public interface BatchInformationRepo extends JpaRepository<BatchInformation, Lo
                     id,
                     base_currency ,
                     date_time,
+                    etag,
                     ROW_NUMBER() OVER (PARTITION BY base_currency ORDER BY date_time DESC) AS rn
                 FROM
-                    batch_information bi\s
+                    batch_information bi
                     )
-            select id, date_time, base_currency from most_recent_updates where rn = 1""", nativeQuery = true)
+            select id, date_time, base_currency, etag from most_recent_updates where rn = 1""", nativeQuery = true)
     List<BatchInformation> getMostRecentBatches();
 
     List<BatchInformation> findBatchInformationByDateTimeAfter(LocalDateTime dateTime);

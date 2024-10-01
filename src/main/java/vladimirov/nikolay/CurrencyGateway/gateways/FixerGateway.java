@@ -33,6 +33,9 @@ public class FixerGateway {
         this.rateRepo = rateRepo;
     }
 
+    public void updateAllFixerRatesDefaultBase(){
+        updateFixerRates(null, null);
+    }
     public void updateFixerRates(String baseCurrency, String targetCurrencies){
         ResponseEntity<FixerResponse> fixerResponse = fetchFixerRates(baseCurrency, targetCurrencies);
         if (fixerResponse != null) {
@@ -40,10 +43,12 @@ public class FixerGateway {
         }
     }
     private ResponseEntity<FixerResponse> fetchFixerRates(String baseCurrency, String targetCurrencies){
-        String etag = batchInformationRepo.findFirstByOrderByDateTimeDesc().getEtag();
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.set("If-None-Match", etag);
+        BatchInformation latestBatch = batchInformationRepo.findFirstByOrderByDateTimeDesc();
+        if(latestBatch != null){
+            headers.set("If-None-Match", latestBatch.getEtag());
+        }
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         StringBuilder url = new StringBuilder(API_URL + apiKey);
