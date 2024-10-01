@@ -25,4 +25,6 @@ public interface BatchInformationRepo extends JpaRepository<BatchInformation, Lo
     List<BatchInformation> getMostRecentBatches();
 
     List<BatchInformation> findBatchInformationByDateTimeAfter(LocalDateTime dateTime);
+
+    BatchInformation findFirstByOrderByDateTimeDesc();
 }

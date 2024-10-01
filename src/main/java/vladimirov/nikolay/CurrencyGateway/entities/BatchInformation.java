@@ -12,15 +12,17 @@ public class BatchInformation {
     private Long id;
     private LocalDateTime dateTime;
     private String baseCurrency;
+    private String etag;
     @OneToMany(mappedBy = "batchInformation")
     private Set<Rate> rates;
 
     public BatchInformation() {
     }
 
-    public BatchInformation(LocalDateTime dateTime, String baseCurrency) {
+    public BatchInformation(LocalDateTime dateTime, String baseCurrency, String etag) {
         this.dateTime = dateTime;
         this.baseCurrency = baseCurrency;
+        this.etag = etag;
     }
 
     public LocalDateTime getDateTime() {
@@ -53,5 +55,13 @@ public class BatchInformation {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEtag() {
+        return etag;
+    }
+
+    public void setEtag(String etag) {
+        this.etag = etag;
     }
 }
