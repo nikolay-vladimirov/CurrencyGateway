@@ -1,5 +1,7 @@
 package vladimirov.nikolay.CurrencyGateway.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
 public class RateController {
     private final CallStatisticsService callStatisticsService;
     private final RateService rateService;
+    private final Logger logger = LoggerFactory.getLogger(RateController.class);
 
     @Autowired
     public RateController(CallStatisticsService callStatisticsService, RateService rateService) {
@@ -57,6 +60,7 @@ public class RateController {
             callStatisticsService.insertServiceCall(new CallStatistics(command.getId(), Caller.EXIT_SERVICE_1, historyCommand.getConsumer(), dateTime));
             return rateService.getCurrencyHistory(historyCommand.getCurrency(), period);
         }
+        logger.error("The command you have chosen is currently unhandled");
         throw new UnhandledCommandException("The command you have chosen is currently unhandled");
     }
 

@@ -47,4 +47,14 @@ public class Rate {
     public void setBatchInformation(BatchInformation batchInformation) {
         this.batchInformation = batchInformation;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Rate{");
+        sb.append("currency='").append(currency).append('\'');
+        sb.append(", baseValue=").append(baseValue);
+        sb.append(", batchInformationId=").append(batchInformation.getId());
+        sb.append('}');
+        return sb.toString();
+    }
 }

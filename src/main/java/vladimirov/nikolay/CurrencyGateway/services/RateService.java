@@ -1,5 +1,7 @@
 package vladimirov.nikolay.CurrencyGateway.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vladimirov.nikolay.CurrencyGateway.DTOs.CurrencyResponse;
@@ -14,6 +16,7 @@ public class RateService {
 
     private final RateRepo rateRepo;
     private final BatchInformationService batchInformationService;
+    private final Logger logger = LoggerFactory.getLogger(RateService.class);
 
     @Autowired
     public RateService(RateRepo rateRepo, BatchInformationService batchInformationService) {
@@ -23,6 +26,7 @@ public class RateService {
 
     public List<CurrencyResponse> getCurrentRates(String currency){
         List<BatchInformation> batches = batchInformationService.getMostRecentBatches();
+        logger.info("Getting rates for batches: {}", batches);
         return getCurrencyRatesForBatches(currency, batches);
     }
 
@@ -34,6 +38,7 @@ public class RateService {
     private List<CurrencyResponse> getCurrencyRatesForBatches(String currency, List<BatchInformation> batches){
         List<Long> batchIds = batches.stream().map(BatchInformation::getId).toList();
         List<Rate> rates = rateRepo.findByCurrencyAndBatchInformation_IdIn(currency, batchIds);
+        logger.info("Mapping rates to response {}", rates);
         return rates.stream().map( rate -> new CurrencyResponse(rate.getBatchInformation().getBaseCurrency(), rate.getBaseValue(), rate.getBatchInformation().getDateTime())).toList();
     }
 }

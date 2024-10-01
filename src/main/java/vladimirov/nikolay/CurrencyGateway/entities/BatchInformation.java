@@ -64,4 +64,14 @@ public class BatchInformation {
     public void setEtag(String etag) {
         this.etag = etag;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("BatchInformation{");
+        sb.append("dateTime=").append(dateTime);
+        sb.append(", baseCurrency='").append(baseCurrency).append('\'');
+        sb.append(", etag='").append(etag).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
